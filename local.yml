@@ -4,9 +4,22 @@
 
   tasks:
 
-  - name: Install Vim
-    ansible.builtin.dnf:
-      name: vim-enhanced
-      state: present
+    - name: Install Vim
+      ansible.builtin.dnf:
+        name: vim-enhanced
+        state: present
+
+    - name: Enable SELinux in enforcing mode
+      ansible.posix.selinux:
+        policy: targeted
+        state: enforcing
+      notify: Relabel filesystem
+
+  handlers:
+
+    - name: Relabel filesystem
+      ansible.builtin.file:
+        path: /.autorelabel
+        state: touch
 
 ...
