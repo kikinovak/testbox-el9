@@ -11,9 +11,22 @@
 
     - name: Install packages
       ansible.builtin.dnf:
-        name: 
+        name:
           - vim-enhanced
           - cowsay
         state: present
+
+    - name: Enable SELinux in enforcing mode
+      ansible.posix.selinux:
+        policy: targeted
+        state: enforcing
+      notify: Relabel filesystem
+
+  handlers:
+
+    - name: Relabel filesystem
+      ansible.builtin.file:
+        path: /.autorelabel
+        state: touch
 
 ...
