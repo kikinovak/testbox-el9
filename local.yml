@@ -1,0 +1,12 @@
+---  # local.yml
+
+- hosts: localhost
+
+  tasks:
+
+  - name: Install Vim
+    ansible.builtin.dnf
+      name: vim-enhanced
+      state: present
+
+...
