@@ -5,7 +5,7 @@
   tasks:
 
   - name: Install Vim
-    ansible.builtin.dnf
+    ansible.builtin.dnf:
       name: vim-enhanced
       state: present
 
