@@ -4,22 +4,16 @@
 
   tasks:
 
-    - name: Install Vim
+    - name: Configure EPEL repository
       ansible.builtin.dnf:
-        name: vim-enhanced
+        name: epel-release
         state: present
 
-    - name: Enable SELinux in enforcing mode
-      ansible.posix.selinux:
-        policy: targeted
-        state: enforcing
-      notify: Relabel filesystem
-
-  handlers:
-
-    - name: Relabel filesystem
-      ansible.builtin.file:
-        path: /.autorelabel
-        state: touch
+    - name: Install packages
+      ansible.builtin.dnf:
+        name: 
+          - vim-enhanced
+          - cowsay
+        state: present
 
 ...
